@@ -1,0 +1,26 @@
+create database taller2;
+
+use taller2;
+
+CREATE TABLE Game (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  genre VARCHAR(50),
+  platform VARCHAR(50),
+  release_date DATE,
+  price DECIMAL(10,2),
+  description TEXT,
+  image_url VARCHAR(255)
+);
+
+INSERT INTO game (title, genre, platform, release_date, price, description, image_url) VALUES
+('Minecraft', 'Sandbox / Survival', 'Multi-platform', '2011-11-18', 26.95, 'Juego de construcción y supervivencia en un mundo abierto.', 'https://example.com/minecraft.jpg'),
+('Grand Theft Auto V', 'Acción / Aventura', 'Multi-platform', '2013-09-17', 59.99, 'Juego de mundo abierto con tres protagonistas y diversas misiones en Los Santos.', 'https://example.com/gta5.jpg'),
+('Wii Sports', 'Deportes', 'Wii', '2006-11-19', 49.99, 'Pack-in deportivo para Wii con varios mini-juegos como tenis, bolos y boxeo.', 'https://example.com/wiisports.jpg'),
+('Mario Kart 8 Deluxe', 'Carreras', 'Nintendo Switch', '2017-04-28', 59.99, 'Versión mejorada de Mario Kart 8 con todos los DLC y modo portátil.', 'https://example.com/mariokart8deluxe.jpg'),
+('Red Dead Redemption II', 'Acción / Aventura', 'Multi-platform', '2018-10-26', 59.99, 'Western épico de mundo abierto ambientado en 1899 con el fin del Salvaje Oeste.', 'https://example.com/rdr2.jpg'),
+('PUBG: Battlegrounds', 'Battle Royale', 'Multi-platform', '2017-12-20', 29.99, 'Juego multijugador estilo battle royale donde cien jugadores luchan por sobrevivir.', 'https://example.com/pubg.jpg'),
+('Terraria', 'Aventura / Sandbox', 'Multi-platform', '2011-05-16', 19.99, 'Juego 2D de exploración, construcción y combate con estilo pixelado.', 'https://example.com/terraria.jpg'),
+('The Witcher 3: Wild Hunt', 'RPG', 'Multi-platform', '2015-05-19', 39.99, 'RPG de mundo abierto con Geralt de Rivia en una historia madura y expansiva.', 'https://example.com/witcher3.jpg'),
+('Super Mario Bros.', 'Plataformas', 'NES / Multi-platform', '1985-09-13', 19.99, 'Clásico de las plataformas de Nintendo que marcó historia en los videojuegos.', 'https://example.com/supermariobros.jpg'),
+('Tetris', 'Puzzle', 'Multi-platform', '1984-06-06', 9.99, 'El famoso juego de puzles donde cascar piezas para completar líneas.', 'https://example.com/tetris.jpg');

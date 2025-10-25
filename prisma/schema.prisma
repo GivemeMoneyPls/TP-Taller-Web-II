@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model game {
+  id           Int       @id @default(autoincrement())
+  title        String    @db.VarChar(100)
+  genre        String?   @db.VarChar(50)
+  platform     String?   @db.VarChar(50)
+  release_date DateTime? @db.Date
+  price        Decimal?  @db.Decimal(10, 2)
+  description  String?   @db.Text
+  image_url    String?   @db.VarChar(255)
+}
