@@ -1,26 +1,145 @@
-create database taller2;
+create database if not exists tptaller2;
 
-use taller2;
-
-CREATE TABLE Game (
+use tptaller2;
+-- ======================================================
+-- 1️⃣ TABLA DE USUARIOS
+-- ======================================================
+CREATE TABLE usuario (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(100) NOT NULL,
-  genre VARCHAR(50),
-  platform VARCHAR(50),
-  release_date DATE,
-  price DECIMAL(10,2),
-  description TEXT,
-  image_url VARCHAR(255)
+  email VARCHAR(100) NOT NULL UNIQUE,
+  contraseña VARCHAR(255) NOT NULL,
+  nombre VARCHAR(50) NOT NULL,
+  apellido VARCHAR(50) NOT NULL,
+  direccion VARCHAR(100)
 );
 
-INSERT INTO game (title, genre, platform, release_date, price, description, image_url) VALUES
-('Minecraft', 'Sandbox / Survival', 'Multi-platform', '2011-11-18', 26.95, 'Juego de construcción y supervivencia en un mundo abierto.', 'https://example.com/minecraft.jpg'),
-('Grand Theft Auto V', 'Acción / Aventura', 'Multi-platform', '2013-09-17', 59.99, 'Juego de mundo abierto con tres protagonistas y diversas misiones en Los Santos.', 'https://example.com/gta5.jpg'),
-('Wii Sports', 'Deportes', 'Wii', '2006-11-19', 49.99, 'Pack-in deportivo para Wii con varios mini-juegos como tenis, bolos y boxeo.', 'https://example.com/wiisports.jpg'),
-('Mario Kart 8 Deluxe', 'Carreras', 'Nintendo Switch', '2017-04-28', 59.99, 'Versión mejorada de Mario Kart 8 con todos los DLC y modo portátil.', 'https://example.com/mariokart8deluxe.jpg'),
-('Red Dead Redemption II', 'Acción / Aventura', 'Multi-platform', '2018-10-26', 59.99, 'Western épico de mundo abierto ambientado en 1899 con el fin del Salvaje Oeste.', 'https://example.com/rdr2.jpg'),
-('PUBG: Battlegrounds', 'Battle Royale', 'Multi-platform', '2017-12-20', 29.99, 'Juego multijugador estilo battle royale donde cien jugadores luchan por sobrevivir.', 'https://example.com/pubg.jpg'),
-('Terraria', 'Aventura / Sandbox', 'Multi-platform', '2011-05-16', 19.99, 'Juego 2D de exploración, construcción y combate con estilo pixelado.', 'https://example.com/terraria.jpg'),
-('The Witcher 3: Wild Hunt', 'RPG', 'Multi-platform', '2015-05-19', 39.99, 'RPG de mundo abierto con Geralt de Rivia en una historia madura y expansiva.', 'https://example.com/witcher3.jpg'),
-('Super Mario Bros.', 'Plataformas', 'NES / Multi-platform', '1985-09-13', 19.99, 'Clásico de las plataformas de Nintendo que marcó historia en los videojuegos.', 'https://example.com/supermariobros.jpg'),
-('Tetris', 'Puzzle', 'Multi-platform', '1984-06-06', 9.99, 'El famoso juego de puzles donde cascar piezas para completar líneas.', 'https://example.com/tetris.jpg');
+-- ======================================================
+-- 2️⃣ TABLA DE PLATAFORMAS
+-- ======================================================
+CREATE TABLE plataforma (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL UNIQUE
+);
+
+-- ======================================================
+-- 3️⃣ TABLA DE VIDEOJUEGOS
+-- ======================================================
+CREATE TABLE juego (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  titulo VARCHAR(100) NOT NULL,
+  fecha_lanzamiento DATE,
+  precio DECIMAL(10,2) NOT NULL,
+  descripcion TEXT,
+  imagen_url VARCHAR(255),
+  plataforma_id INT,
+  FOREIGN KEY (plataforma_id) REFERENCES plataforma(id)
+);
+
+-- ======================================================
+-- 4️⃣ TABLA DE GÉNEROS
+-- ======================================================
+CREATE TABLE genero (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL UNIQUE
+);
+
+-- ======================================================
+-- 5️⃣ TABLA INTERMEDIA: VIDEOJUEGO ↔ GÉNERO
+-- ======================================================
+CREATE TABLE juego_genero (
+  juego_id INT,
+  genero_id INT,
+  PRIMARY KEY (juego_id, genero_id),
+  FOREIGN KEY (juego_id) REFERENCES juego(id) ON DELETE CASCADE,
+  FOREIGN KEY (genero_id) REFERENCES genero(id) ON DELETE CASCADE
+);
+
+-- ======================================================
+-- 6️⃣ TABLA INTERMEDIA: USUARIO ↔ VIDEOJUEGO (CARRITO / COMPRAS)
+-- ======================================================
+CREATE TABLE usuario_juego (
+  usuario_id INT,
+  juego_id INT,
+  cantidad INT DEFAULT 1,
+  PRIMARY KEY (usuario_id, juego_id),
+  FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE,
+  FOREIGN KEY (juego_id) REFERENCES juego(id) ON DELETE CASCADE
+);
+
+INSERT INTO usuario (email, contraseña, nombre, apellido, direccion) VALUES
+('juan.perez@example.com', '1234', 'Juan', 'Pérez', 'Av. Siempre Viva 123'),
+('maria.garcia@example.com', 'abcd', 'María', 'García', 'Calle Luna 456'),
+('lucas.fernandez@example.com', 'pass123', 'Lucas', 'Fernández', 'Ruta Sol 789');
+
+INSERT INTO plataforma (nombre) VALUES
+('Steam'),
+('PlayStation 5'),
+('Xbox Series X'),
+('Nintendo Switch'),
+('Mobile');
+
+INSERT INTO juego (titulo, fecha_lanzamiento, precio, descripcion, imagen_url, plataforma_id) VALUES
+-- Steam
+('Counter-Strike 2', '2023-09-27', 29.99, 'Shooter táctico competitivo con gráficos y físicas renovadas.', 'https://example.com/cs2.jpg', 1),
+('Baldur’s Gate 3', '2023-08-03', 69.99, 'RPG épico basado en Dungeons & Dragons con elecciones complejas.', 'https://example.com/bg3.jpg', 1),
+
+-- PlayStation 5
+('Marvel’s Spider-Man 2', '2023-10-20', 69.99, 'Peter Parker y Miles Morales en una nueva aventura exclusiva.', 'https://example.com/spiderman2.jpg', 2),
+('God of War Ragnarök', '2022-11-09', 69.99, 'Kratos y Atreus enfrentan el fin de los tiempos nórdicos.', 'https://example.com/gowragnarok.jpg', 2),
+
+-- Xbox Series X
+('Halo Infinite', '2021-12-08', 59.99, 'Nueva aventura del Jefe Maestro en mundo abierto.', 'https://example.com/halo_infinite.jpg', 3),
+('Forza Horizon 5', '2021-11-09', 59.99, 'Conduce por México en un espectacular entorno de mundo abierto.', 'https://example.com/forza5.jpg', 3),
+
+-- Nintendo Switch
+('The Legend of Zelda: Tears of the Kingdom', '2023-05-12', 69.99, 'Secuela de Breath of the Wild con nuevas mecánicas.', 'https://example.com/zelda_totk.jpg', 4),
+('Super Mario Odyssey', '2017-10-27', 59.99, 'Mario explora coloridos mundos 3D llenos de sorpresas.', 'https://example.com/mario_odyssey.jpg', 4),
+
+-- Mobile
+('Monument Valley 2', '2017-06-05', 4.99, 'Aventura visual con arquitectura imposible y paisajes sonoros.', 'https://example.com/monument_valley_2.jpg', 5),
+('Stardew Valley Mobile', '2019-03-13', 7.99, 'Simulador agrícola con exploración, combate y romance.', 'https://example.com/stardew_valley_mobile.jpg', 5);
+
+INSERT INTO genero (nombre) VALUES
+('Acción'),
+('Aventura'),
+('RPG'),
+('Shooter'),
+('Carreras'),
+('Plataformas'),
+('Estrategia'),
+('Mundo Abierto'),
+('Simulación'),
+('Puzzles');
+
+-- Steam
+INSERT INTO juego_genero VALUES
+(1, 1), (1, 4),           -- Counter-Strike 2 → Acción, Shooter
+(2, 2), (2, 3);            -- Baldur’s Gate 3 → Aventura, RPG
+
+-- PlayStation 5
+INSERT INTO videojuego_genero VALUES
+(3, 1), (3, 2),            -- Spider-Man 2 → Acción, Aventura
+(4, 1), (4, 2);            -- God of War → Acción, Aventura
+
+-- Xbox
+INSERT INTO videojuego_genero VALUES
+(5, 4), (5, 8),            -- Halo Infinite → Shooter, Mundo Abierto
+(6, 5), (6, 8);            -- Forza Horizon 5 → Carreras, Mundo Abierto
+
+-- Switch
+INSERT INTO videojuego_genero VALUES
+(7, 2), (7, 8),            -- Zelda TOTK → Aventura, Mundo Abierto
+(8, 6), (8, 2);            -- Mario Odyssey → Plataformas, Aventura
+
+-- Mobile
+INSERT INTO videojuego_genero VALUES
+(9, 10), (9, 2),           -- Monument Valley 2 → Puzzles, Aventura
+(10, 9), (10, 3);          -- Stardew Valley Mobile → Simulación, RPG
+
+INSERT INTO usuario_juego (usuario_id, juego_id, cantidad) VALUES
+(1, 2, 1),   -- Juan compró Baldur’s Gate 3
+(1, 7, 1),   -- Juan compró Zelda TOTK
+(2, 4, 1),   -- María compró God of War Ragnarök
+(2, 10, 2),  -- María compró 2 Stardew Valley Mobile
+(3, 1, 1),   -- Lucas compró Counter-Strike 2
+(3, 6, 1);   -- Lucas compró Forza Horizon 5
