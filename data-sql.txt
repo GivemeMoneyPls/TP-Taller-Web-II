@@ -80,24 +80,24 @@ INSERT INTO plataforma (nombre) VALUES
 
 INSERT INTO juego (titulo, fecha_lanzamiento, precio, descripcion, imagen_url, plataforma_id) VALUES
 -- Steam
-('Counter-Strike 2', '2023-09-27', 29.99, 'Shooter táctico competitivo con gráficos y físicas renovadas.', 'https://example.com/cs2.jpg', 1),
-('Baldur’s Gate 3', '2023-08-03', 69.99, 'RPG épico basado en Dungeons & Dragons con elecciones complejas.', 'https://example.com/bg3.jpg', 1),
+('Counter-Strike 2', '2023-09-27', 19.99, 'Shooter táctico competitivo con gráficos y físicas renovadas.', 'counter_strike_2.jpg', 1),
+('Baldur’s Gate 3', '2023-08-03', 69.99, 'RPG épico basado en Dungeons & Dragons con elecciones complejas.', 'baldurs_gate_3.jpg', 1),
 
 -- PlayStation 5
-('Marvel’s Spider-Man 2', '2023-10-20', 69.99, 'Peter Parker y Miles Morales en una nueva aventura exclusiva.', 'https://example.com/spiderman2.jpg', 2),
-('God of War Ragnarök', '2022-11-09', 69.99, 'Kratos y Atreus enfrentan el fin de los tiempos nórdicos.', 'https://example.com/gowragnarok.jpg', 2),
+('Marvel’s Spider-Man 2', '2023-10-20', 69.99, 'Peter Parker y Miles Morales en una nueva aventura exclusiva.', 'marvels_spider_man_2.jpg', 2),
+('God of War Ragnarök', '2022-11-09', 69.99, 'Kratos y Atreus enfrentan el fin de los tiempos nórdicos.', 'god_of_war_ragnarok.jpg', 2),
 
 -- Xbox Series X
-('Halo Infinite', '2021-12-08', 59.99, 'Nueva aventura del Jefe Maestro en mundo abierto.', 'https://example.com/halo_infinite.jpg', 3),
-('Forza Horizon 5', '2021-11-09', 59.99, 'Conduce por México en un espectacular entorno de mundo abierto.', 'https://example.com/forza5.jpg', 3),
+('Halo Infinite', '2021-12-08', 59.99, 'Nueva aventura del Jefe Maestro en mundo abierto.', 'halo_infinite.jpg', 3),
+('Forza Horizon 5', '2021-11-09', 59.99, 'Conduce por México en un espectacular entorno de mundo abierto.', 'forza_horizon_5.jpg', 3),
 
 -- Nintendo Switch
-('The Legend of Zelda: Tears of the Kingdom', '2023-05-12', 69.99, 'Secuela de Breath of the Wild con nuevas mecánicas.', 'https://example.com/zelda_totk.jpg', 4),
-('Super Mario Odyssey', '2017-10-27', 59.99, 'Mario explora coloridos mundos 3D llenos de sorpresas.', 'https://example.com/mario_odyssey.jpg', 4),
+('The Legend of Zelda: Tears of the Kingdom', '2023-05-12', 69.99, 'Secuela de Breath of the Wild con nuevas mecánicas.', 'the_legend_of_zelda_tears_of_the_kingdom.jpg', 4),
+('Super Mario Odyssey', '2017-10-27', 59.99, 'Mario explora coloridos mundos 3D llenos de sorpresas.', 'super_mario_odyssey.jpg', 4),
 
 -- Mobile
-('Monument Valley 2', '2017-06-05', 4.99, 'Aventura visual con arquitectura imposible y paisajes sonoros.', 'https://example.com/monument_valley_2.jpg', 5),
-('Stardew Valley Mobile', '2019-03-13', 7.99, 'Simulador agrícola con exploración, combate y romance.', 'https://example.com/stardew_valley_mobile.jpg', 5);
+('Monument Valley 2', '2017-06-05', 4.99, 'Aventura visual con arquitectura imposible y paisajes sonoros.', 'monument_valley_2.jpg', 5),
+('Stardew Valley Mobile', '2019-03-13', 7.99, 'Simulador agrícola con exploración, combate y romance.', 'stardew_valley_mobile.jpg', 5);
 
 INSERT INTO genero (nombre) VALUES
 ('Acción'),
@@ -132,7 +132,7 @@ INSERT INTO videojuego_genero VALUES
 (8, 6), (8, 2);            -- Mario Odyssey → Plataformas, Aventura
 
 -- Mobile
-INSERT INTO videojuego_genero VALUES
+INSERT INTO juego_genero VALUES
 (9, 10), (9, 2),           -- Monument Valley 2 → Puzzles, Aventura
 (10, 9), (10, 3);          -- Stardew Valley Mobile → Simulación, RPG
 
